@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import {useDispatch} from 'react-redux';
+import { useDispatch } from 'react-redux';
 import "./login.css";
 import icon from "./jmblogo.svg";
 import { auth } from "./firebase";
@@ -14,6 +14,18 @@ function Login() {
 
   const logintoapp = (e) => {
     e.preventDefault();
+
+    auth.signInWithEmailAndPassword(email, password)
+      .then(userauth => {
+        dispatch(
+          login({
+            email: userauth.user.email,
+            uid: userauth.user.uid,
+            displayName: userauth.displayName,
+            photoURL: userauth.photoURL,
+          })
+        );
+      }).catch(error => alert(error));
   };
   const register = () => {
     if (!name) {
@@ -70,7 +82,7 @@ function Login() {
           placeholder="enter a password"
           type="password"
         />
-        <button type="submit" onClick={logintoapp}>Login</button>
+        <button type="submit" onClick={logintoapp}>Sign In</button>
       </form>
       <p>
         Not a member? <span className="login_register" onClick={register}>Register Now! </span>

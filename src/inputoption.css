@@ -5,6 +5,7 @@
 	color: gray;
 	padding: 10px;
 	cursor: pointer;
+	justify-content: space-evenly;
 }
 .inputoption:hover {
 	background-color: whitesmoke;
